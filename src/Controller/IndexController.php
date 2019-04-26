@@ -1,8 +1,11 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
+use App\Lib\FileSystem;
+
 /**
  * EventImages Controller
  *
@@ -10,29 +13,22 @@ use Cake\ORM\TableRegistry;
  *
  * @method \App\Model\Entity\EventImage[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class IndexController extends AppController
-{
-   
-    
-   function initialize() {
+class IndexController extends AppController {
+
+    function initialize() {
         parent::initialize();
         $this->EventImages = TableRegistry::get('EventImages');
-   }
-    
-    
+    }
+
     /**
      * Index method
      *
      * @return \Cake\Http\Response|void
      */
-    public function index()
-    {
-        $this->paginate = [
-            'contain' => ['Categories']
-        ];
-        $eventImages = $this->paginate($this->EventImages);
-
-        $this->set(compact('eventImages'));
+    public function index() {
+        $fs = new FileSystem();
+        $allImages = $fs->getMediaImages();
+        $this->set(compact('allImages'));
     }
 
     /**
@@ -42,8 +38,7 @@ class IndexController extends AppController
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
-    {
+    public function view($id = null) {
         $eventImage = $this->EventImages->get($id, [
             'contain' => ['Categories']
         ]);
@@ -56,8 +51,7 @@ class IndexController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
-    {
+    public function add() {
         $eventImage = $this->EventImages->newEntity();
         if ($this->request->is('post')) {
             $eventImage = $this->EventImages->patchEntity($eventImage, $this->request->getData());
@@ -79,8 +73,7 @@ class IndexController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
-    {
+    public function edit($id = null) {
         $eventImage = $this->EventImages->get($id, [
             'contain' => []
         ]);
@@ -104,8 +97,7 @@ class IndexController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
-    {
+    public function delete($id = null) {
         $this->request->allowMethod(['post', 'delete']);
         $eventImage = $this->EventImages->get($id);
         if ($this->EventImages->delete($eventImage)) {
@@ -116,4 +108,5 @@ class IndexController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
 }

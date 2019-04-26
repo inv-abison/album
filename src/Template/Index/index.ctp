@@ -40,12 +40,14 @@
 			<div class="row">
 				<div class="span12">
 					<div id="portfolio-wrap">
-                                             <?php foreach ($eventImages as $eventImage): ?>
+                                             <?php foreach ($allImages as $img):
+                                                
+                                                 ?>
 						<!-- portfolio item -->
 						<div class="portfolio-item grid print photography">
 							<div class="portfolio">
-								<a href="<?= h($eventImage->path) ?>" data-pretty="prettyPhoto[gallery1]" class="portfolio-image">
-						<img src="<?= h($eventImage->path) ?>" alt="" />
+								<a href="<?= "webroot/media/images/".h($img) ?>" data-pretty="prettyPhoto[gallery1]" class="portfolio-image">
+						<img src="<?= "webroot/media/images/".h($img) ?>" alt="" />
 						<div class="portfolio-overlay">
 							<div class="thumb-info">
 								<h5>Portfolio name</h5>
