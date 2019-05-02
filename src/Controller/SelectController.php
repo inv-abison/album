@@ -13,7 +13,7 @@ use App\Lib\FileSystem;
  *
  * @method \App\Model\Entity\EventImage[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class IndexController extends AppController {
+class SelectController extends AppController {
 
     function initialize() {
         parent::initialize();
@@ -30,22 +30,6 @@ class IndexController extends AppController {
         $allImages = $fs->getMediaImages();
         $this->set(compact('allImages'));
     }
-
-    
-    
-    public function genthumbs(){
-        if (ob_get_level() == 0) ob_start();
-        $this->layout = false;
-        $this->render(false);
-        $fs = new FileSystem();
-        $fs->generateThumbs();
-        ob_end_flush();
-        die;
-    }
-
-    
-
-
 
     /**
      * View method

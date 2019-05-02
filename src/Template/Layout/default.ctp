@@ -23,11 +23,23 @@
         <meta name="author" content="">
         <?= $this->Html->meta('icon') ?>
         <?= $this->Html->css('bootstrap-responsive.css') ?>
+        <?= $this->Html->css('style.css') ?>
+        <?= $this->Html->css('../color/default.css') ?>
+        <?= $this->Html->css('lightgallery.min.css') ?>
         <?= $this->fetch('meta') ?>
         <?= $this->fetch('css') ?>
-        <link href="assets/css/style.css" rel="stylesheet">
-        <link href="assets/color/default.css" rel="stylesheet">
-        <link rel="shortcut icon" href="img/favicon.ico">
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" />
+        <?= $this->Html->script("jquery.js"); ?>
+         <?= $this->Html->script("jquery.scrollTo.js"); ?>
+         <?= $this->Html->script("jquery.nav.js"); ?>
+         <?= $this->Html->script("jquery.localScroll.js"); ?>
+         <?= $this->Html->script("bootstrap.js"); ?>
+         <?= $this->Html->script("lightgallery-all.min.js"); ?>
+         <?= $this->Html->script("animate.js"); ?>
+         <?= $this->Html->script("custom.js"); ?>
+        <?= $this->fetch('script') ?>
+
         <!-- =======================================================
     Theme Name: Maxim
     Theme URL: https://bootstrapmade.com/maxim-free-onepage-bootstrap-theme/
@@ -80,18 +92,7 @@
             <!-- ./container -->
         </footer>
         <a href="#" class="scrollup"><i class="icon-angle-up icon-square icon-bgdark icon-2x"></i></a>
-        <?= $this->Html->script("jquery.js"); ?>
-        <?= $this->fetch('script') ?>
-        <script src="assets/js/jquery.scrollTo.js"></script>
-        <script src="assets/js/jquery.nav.js"></script>
-        <script src="assets/js/jquery.localScroll.js"></script>
-        <script src="assets/js/bootstrap.js"></script>
-        <script src="assets/js/jquery.prettyPhoto.js"></script>
-        <script src="assets/js/isotope.js"></script>
-        <script src="assets/js/jquery.flexslider.js"></script>
-        <script src="assets/js/inview.js"></script>
-        <script src="assets/js/animate.js"></script>
-        <script src="assets/js/custom.js"></script>
-        <script src="contactform/contactform.js"></script>
+
+
     </body>
 </html>
