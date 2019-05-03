@@ -8,36 +8,7 @@
 <!-- spacer section -->
 <section id="works" class="section">
     <div class="container clearfix">
-        <h4>Our Works</h4>
-        <!-- portfolio filter -->
-        <div class="row">
-            <div id="filters" class="span12">
-                <ul class="clearfix">
-                    <li>
-                        <a href="#" data-filter="*" class="active">
-                            <h5>All</h5>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" data-filter=".web">
-                            <h5>Ab</h5>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" data-filter=".print">
-                            <h5>Me</h5>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" data-filter=".design">
-                            <h5>Common</h5>
-                        </a>
-                    </li>
 
-                </ul>
-            </div>
-            <!-- END PORTFOLIO FILTERING -->
-        </div>
         <div class="row">
             <div class="span12">
                 <div  id="lightgallery">

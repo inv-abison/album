@@ -35,7 +35,7 @@ class IndexController extends AppController {
     
     public function genthumbs(){
         if (ob_get_level() == 0) ob_start();
-        $this->layout = false;
+        $this->viewBuilder()->setLayout(false);
         $this->render(false);
         $fs = new FileSystem();
         $fs->generateThumbs();

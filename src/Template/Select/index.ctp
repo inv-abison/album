@@ -29,6 +29,11 @@
             </div>
         </div>
     </div>
+    <div id="pagination" style="width:100%; margin-top: 25px; margin-bottom: -50px; height:25px; background-color: black;" >
+        <?php for($i=0;$i<$totalPages;$i++){ ?>
+        <div class="pagelm" data-pagenum="<?= $i; ?>" style="float:left;margin:0px 5px;width: 25px; height:22px; background-color: rgba(38, 125, 165,.8); color:white; text-align: center; padding: 2px 2px; cursor: pointer;"><?= ($i+1); ?></div>
+        <?php } ?>
+    </div>
 </section>
 <!-- end spacer section -->
 <script>
@@ -62,6 +67,11 @@
                 }
             });
 
+        });
+        $(".pagelm").click(function(){
+            
+            location.href="select/index/"+$(this).data("pagenum");
+            
         });
         function getRand() {
 

@@ -25,10 +25,14 @@ class SelectController extends AppController {
      *
      * @return \Cake\Http\Response|void
      */
-    public function index() {
+    public function index($page=0) {
         $fs = new FileSystem();
-        $allImages = $fs->getMediaImages();
-        $this->set(compact('allImages'));
+        $perPageCount=100;
+        $totalImgCount=$fs->getTotalImageCount();
+        $startCount= intval($page)*$perPageCount;
+        $allImages = $fs->getMediaImages($startCount,$perPageCount); 
+        $totalPages=ceil($totalImgCount/$perPageCount);
+        $this->set(compact('allImages','perPageCount','totalImgCount','totalPages'));
     }
 
     /**

@@ -4,17 +4,36 @@ namespace App\Lib;
 
 class FileSystem {
 
-    function getMediaImages() {
+    function getMediaImages($start = 0, $num = 0) {
 
         $path = realpath('../webroot/media/images');
         $objects = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS), \RecursiveIteratorIterator::SELF_FIRST);
         $files = [];
+        $fileCount = 0;
         foreach ($objects as $name => $object) {
             if (!$object->isDir()) {
-                $files[] = $objects->getSubPathName();
+                $pths=explode(".",$name);
+                $ext=strtolower(end($pths));
+                if ($fileCount >= $start && ($num == 0 || $fileCount < ($start + $num)) && in_array($ext,["jpg","jpeg","png"])) {
+                    $files[] = $objects->getSubPathName();
+                }
+                $fileCount++;
             }
         }
         return $files;
+    }
+
+    function getTotalImageCount() {
+
+        $path = realpath('../webroot/media/images');
+        $objects = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS), \RecursiveIteratorIterator::SELF_FIRST);
+        $imgCount = 0;
+        foreach ($objects as $name => $object) {
+            if (!$object->isDir()) {
+                $imgCount++;
+            }
+        }
+        return $imgCount;
     }
 
     function generateThumbs() {
@@ -41,10 +60,18 @@ class FileSystem {
             } else {
                 $imagePath = $sourceFolder . DIRECTORY_SEPARATOR . $subPath;
                 $savePath = $destFolder . DIRECTORY_SEPARATOR . $subPath;
-                if (!file_exists($savePath)) {
-                    $fileNum++;
+                $pths=explode(".",$name);
+                $ext=strtolower(end($pths));
+                if (!file_exists($savePath) && in_array($ext,["jpg","jpeg","png"])) {
+                    $fileNum++;                  
                     $image = new \Imagick(realpath($imagePath));
-                    $image->resizeImage(150, 150, 0, 1, true);
+                    $orientation = $image->getImageOrientation(); 
+                    if($orientation!=\Imagick::ORIENTATION_TOPLEFT){
+                        $image->setImageOrientation(\Imagick::ORIENTATION_TOPLEFT);
+                        $image->writeImage($imagePath);
+                    }
+                    
+                    $image->resizeImage(150, 150, 0, 1, true);                 
                     $image->writeImage($savePath);
                     echo $subPath . "<br/>";
                     ob_flush();
@@ -62,11 +89,11 @@ class FileSystem {
         $thumbFolder = realpath('../webroot/media/thumbs');
         $imagePath = $imageFolder . DIRECTORY_SEPARATOR . $path;
         $thumbPath = $thumbFolder . DIRECTORY_SEPARATOR . $path;
-        $image = new \Imagick(realpath($imagePath));
-        $image->rotateImage(new \ImagickPixel('none'), $angle);
-        $image->writeImage($imagePath);
-        $image->clear();
-        $image->destroy();
+        $fullImage = new \Imagick(realpath($imagePath));
+        $fullImage->rotateImage(new \ImagickPixel('none'), $angle);
+        $fullImage->writeImage($imagePath);
+        $fullImage->clear();
+        $fullImage->destroy();
         $thumb = new \Imagick(realpath($thumbPath));
         $thumb->rotateImage(new \ImagickPixel('none'), $angle);
         $thumb->writeImage($thumbPath);
